@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BCD, Excess-3, and Gray Code Flashcard Quiz</title>
+  <style>
+    :root {
+      --bg: #f4f6fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #d1d5db;
+      --accent: #2563eb;
+      --success: #16a34a;
+      --danger: #dc2626;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .app {
+      width: 100%;
+      max-width: 820px;
+      background: var(--card);
+      border-radius: 22px;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.12);
+      padding: 28px;
+    }
+    h1, h2 {
+      text-align: center;
+      margin: 0 0 8px;
+    }
+    h1 { font-size: 28px; }
+    h2 { font-size: 24px; }
+    .subtitle {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+    .field {
+      margin-bottom: 14px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    input[type="text"], input[type="date"], input[type="password"] {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-size: 17px;
+    }
+    #studentAnswer {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 14px;
+    }
+    .error {
+      display: none;
+      color: var(--danger);
+      font-weight: bold;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      padding: 10px;
+      border-radius: 10px;
+      margin: 12px 0;
+      text-align: center;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      padding: 12px;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-weight: bold;
+    }
+    .flashcard {
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      padding: 26px;
+      min-height: 290px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(180deg, #fff, #f9fafb);
+      margin-bottom: 18px;
+    }
+    .set-label {
+      display: none;
+    }
+    .question {
+      font-size: 26px;
+      line-height: 1.35;
+      font-weight: bold;
+      margin-bottom: 18px;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .result-buttons {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      color: white;
+      background: var(--accent);
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+    button.secondary { background: #374151; }
+    button.success { background: var(--success); }
+    button:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+    .note {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 14px;
+      line-height: 1.5;
+      text-align: center;
+    }
+    .screen { display: none; }
+    .screen.active { display: block; }
+    .result-card {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 16px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      text-align: center;
+    }
+    .student-summary {
+      margin: 16px auto;
+      max-width: 560px;
+      text-align: left;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      line-height: 1.7;
+    }
+    .answer-key {
+      margin-top: 14px;
+      display: grid;
+      gap: 10px;
+      text-align: left;
+    }
+    .key-item {
+      padding: 12px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      line-height: 1.45;
+    }
+    .small {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.5;
+    }
+    @media (max-width: 560px) {
+      .buttons { grid-template-columns: 1fr; }
+      .question { font-size: 21px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+
+    <section id="splashScreen" class="screen active">
+      <h1>BCD, Excess-3, and Gray Code Quiz</h1>
+      <div class="subtitle">
+        Enter your information and the magic password to begin.
+      </div>
+
+      <div class="field">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" placeholder="Enter first name" autocomplete="given-name" />
+      </div>
+
+      <div class="field">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" placeholder="Enter last name" autocomplete="family-name" />
+      </div>
+
+      <div class="field">
+        <label for="quizDate">Date Today</label>
+        <input type="date" id="quizDate" />
+      </div>
+
+      <div class="field">
+        <label for="magicPassword">Magic Password</label>
+        <input type="password" id="magicPassword" placeholder="Enter magic password" />
+      </div>
+
+      <div class="error" id="loginError">Please complete all fields and enter the correct password.</div>
+
+      <button style="width:100%;" onclick="startQuiz()">Open Quiz</button>
+      <p class="small">Password is case-sensitive.</p>
+    </section>
+
+    <section id="quizScreen" class="screen">
+      <h1>BCD, Excess-3, and Gray Code Quiz</h1>
+      <div class="subtitle"></div>
+
+      <div class="topbar">
+        <div>Student: <span id="studentNameTop"></span></div>
+        <div>Item: <span id="itemNumber">1</span> / <span id="totalItemsTop"></span></div>
+        <div>Total Items: <span id="totalItemsTop2"></span></div>
+      </div>
+
+      <section class="flashcard">
+        <div class="set-label" id="category">Category</div>
+        <div class="question" id="question">Question appears here</div>
+      </section>
+
+      <input type="text" id="studentAnswer" placeholder="Type your answer here. Example: 0011 0101 or 35" />
+
+      <div class="buttons">
+        <button class="secondary" id="prevBtn" onclick="previousCard()">Previous</button>
+        <button id="nextBtn" onclick="nextCard()">Next</button>
+      </div>
+
+      <div class="note">
+        Answers are accepted with or without spaces.
+      </div>
+    </section>
+
+    <section id="resultScreen" class="screen">
+      <div id="captureArea" class="result-card">
+        <h2>Quiz Completed</h2>
+
+        <div class="student-summary">
+          <div><b>Student Name:</b> <span id="resultStudentName"></span></div>
+          <div><b>Date:</b> <span id="resultDate"></span></div>
+          <div><b>Password Used:</b> <span id="resultPassword"></span></div>
+          <div><b>Total Score:</b> <span id="finalScore"></span></div>
+        </div>
+      </div>
+
+      <div class="result-buttons">
+        <button class="success" onclick="downloadScreenshot()">Download Screen Capture</button>
+      </div>
+
+      <div class="answer-key" id="answerKey"></div>
+    </section>
+  </main>
+
+  <script>
+    const MAGIC_PASSWORD = "June5";
+    const POINTS_PER_ITEM = 3;
+
+    const questionBank = [
+      {
+        category: "Activity 2: Convert Decimal to BCD",
+        q: "Convert 35 to BCD.",
+        a: "35 = 0011 0101",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 2: Convert Decimal to BCD",
+        q: "Convert 78 to BCD.",
+        a: "78 = 0111 1000",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 2: Convert Decimal to BCD",
+        q: "Convert 104 to BCD.",
+        a: "104 = 0001 0000 0100",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 2: Convert Decimal to BCD",
+        q: "Convert 529 to BCD.",
+        a: "529 = 0101 0010 1001",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 2: Convert Decimal to BCD",
+        q: "Convert 906 to BCD.",
+        a: "906 = 1001 0000 0110",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 2: Convert Decimal to BCD",
+        q: "Convert 1207 to BCD.",
+        a: "1207 = 0001 0010 0000 0111",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 2: Convert Decimal to BCD",
+        q: "Convert 3005 to BCD.",
+        a: "3005 = 0011 0000 0000 0101",
+        points: POINTS_PER_ITEM
+      },
+
+      {
+        category: "Activity 3: Convert BCD to Decimal",
+        q: "Convert 0011 0101 from BCD to decimal.",
+        a: "0011 0101 = 35",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 3: Convert BCD to Decimal",
+        q: "Convert 0111 1000 from BCD to decimal.",
+        a: "0111 1000 = 78",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 3: Convert BCD to Decimal",
+        q: "Convert 0001 0000 0100 from BCD to decimal.",
+        a: "0001 0000 0100 = 104",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 3: Convert BCD to Decimal",
+        q: "Convert 0101 0010 1001 from BCD to decimal.",
+        a: "0101 0010 1001 = 529",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 3: Convert BCD to Decimal",
+        q: "Convert 1001 0000 0110 from BCD to decimal.",
+        a: "1001 0000 0110 = 906",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 3: Convert BCD to Decimal",
+        q: "Convert 0001 0010 0000 0111 from BCD to decimal.",
+        a: "0001 0010 0000 0111 = 1207",
+        points: POINTS_PER_ITEM
+      },
+
+      {
+        category: "Activity 4: Convert Decimal Digits to Excess-3",
+        q: "Convert decimal digit 2 to Excess-3.",
+        a: "2 = 0101",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 4: Convert Decimal Digits to Excess-3",
+        q: "Convert decimal digit 5 to Excess-3.",
+        a: "5 = 1000",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 4: Convert Decimal Digits to Excess-3",
+        q: "Convert decimal digit 7 to Excess-3.",
+        a: "7 = 1010",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 4: Convert Decimal Digits to Excess-3",
+        q: "Convert decimal digit 8 to Excess-3.",
+        a: "8 = 1011",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 4: Convert Decimal Digits to Excess-3",
+        q: "Convert decimal digit 9 to Excess-3.",
+        a: "9 = 1100",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 4: Convert Decimal Digits to Excess-3",
+        q: "Convert decimal digit 0 to Excess-3.",
+        a: "0 = 0011",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Activity 4: Convert Decimal Digits to Excess-3",
+        q: "Convert decimal digit 6 to Excess-3.",
+        a: "6 = 1001",
+        points: POINTS_PER_ITEM
+      },
+
+      {
+        category: "Gray Code",
+        q: "Convert binary 0000 to Gray Code.",
+        a: "0000 = 0000",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Gray Code",
+        q: "Convert binary 0001 to Gray Code.",
+        a: "0001 = 0001",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Gray Code",
+        q: "Convert binary 0010 to Gray Code.",
+        a: "0010 = 0011",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Gray Code",
+        q: "Convert binary 0011 to Gray Code.",
+        a: "0011 = 0010",
+        points: POINTS_PER_ITEM
+      },
+      {
+        category: "Gray Code",
+        q: "Convert binary 0100 to Gray Code.",
+        a: "0100 = 0110",
+        points: POINTS_PER_ITEM
+      }
+    ];
+
+    let questions = [];
+    let current = 0;
+    let answers = [];
+    let studentInfo = {
+      firstName: "",
+      lastName: "",
+      date: "",
+      password: ""
+    };
+
+    window.onload = function() {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      document.getElementById("quizDate").value = `${yyyy}-${mm}-${dd}`;
+    };
+
+    function showScreen(id) {
+      document.querySelectorAll(".screen").forEach(screen => screen.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    function startQuiz() {
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+      const date = document.getElementById("quizDate").value;
+      const password = document.getElementById("magicPassword").value;
+
+      if (!firstName || !lastName || !date || password !== MAGIC_PASSWORD) {
+        document.getElementById("loginError").style.display = "block";
+        return;
+      }
+
+      document.getElementById("loginError").style.display = "none";
+
+      studentInfo = { firstName, lastName, date, password };
+      document.getElementById("studentNameTop").textContent = firstName + " " + lastName;
+
+      restartQuizOnly();
+      showScreen("quizScreen");
+    }
+
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function restartQuizOnly() {
+      questions = shuffle(questionBank);
+      current = 0;
+      answers = new Array(questions.length).fill("");
+
+      document.getElementById("totalItemsTop").textContent = questions.length;
+      document.getElementById("totalItemsTop2").textContent = questions.length;
+
+      loadCard();
+    }
+
+    function loadCard() {
+      const item = questions[current];
+
+      document.getElementById("itemNumber").textContent = current + 1;
+      document.getElementById("category").textContent = item.category;
+      document.getElementById("question").textContent = item.q;
+      document.getElementById("studentAnswer").value = answers[current] || "";
+
+      document.getElementById("prevBtn").disabled = current === 0;
+      document.getElementById("nextBtn").textContent = current === questions.length - 1 ? "Finish" : "Next";
+    }
+
+    function saveAnswer() {
+      answers[current] = document.getElementById("studentAnswer").value.trim();
+    }
+
+    function previousCard() {
+      saveAnswer();
+      if (current > 0) {
+        current--;
+        loadCard();
+      }
+    }
+
+    function nextCard() {
+      saveAnswer();
+      if (current < questions.length - 1) {
+        current++;
+        loadCard();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function normalize(text) {
+      return String(text)
+        .toLowerCase()
+        .replace(/\s/g, "")
+        .replace(/−/g, "-")
+        .replace(/₀/g,"0").replace(/₁/g,"1").replace(/₂/g,"2").replace(/₃/g,"3").replace(/₄/g,"4")
+        .replace(/₅/g,"5").replace(/₆/g,"6").replace(/₇/g,"7").replace(/₈/g,"8").replace(/₉/g,"9")
+        .replace(/[^a-z0-9=+-]/g, "");
+    }
+
+    function expectedCore(answer) {
+      return answer.split("=")[1].trim();
+    }
+
+    function removeSpaces(text) {
+      return String(text).replace(/\s/g, "");
+    }
+
+    function stripLeadingZeros(text) {
+      const clean = removeSpaces(text);
+      if (!/^[01]+$/.test(clean) && !/^[0-9]+$/.test(clean)) return clean;
+      const stripped = clean.replace(/^0+/, "");
+      return stripped === "" ? "0" : stripped;
+    }
+
+    function isCorrect(student, correct) {
+      const s = normalize(student);
+      const cFull = normalize(correct);
+      const cCore = normalize(expectedCore(correct));
+
+      const sNoSpaces = normalize(removeSpaces(student));
+      const cCoreNoSpaces = normalize(removeSpaces(expectedCore(correct)));
+
+      const sNoZeros = stripLeadingZeros(student);
+      const cNoZeros = stripLeadingZeros(expectedCore(correct));
+
+      return (
+        s === cFull ||
+        s === cCore ||
+        sNoSpaces === cCoreNoSpaces ||
+        sNoZeros === cNoZeros ||
+        s.includes(cCore) ||
+        s.includes(cCoreNoSpaces)
+      );
+    }
+
+    function getCurrentPoints() {
+      let total = 0;
+      for (let i = 0; i < questions.length; i++) {
+        if (answers[i] && isCorrect(answers[i], questions[i].a)) {
+          total += questions[i].points;
+        }
+      }
+      return total;
+    }
+
+    function getPerfectScore() {
+      return questions.reduce((sum, item) => sum + item.points, 0);
+    }
+
+    function finishQuiz() {
+      const total = getCurrentPoints();
+      const perfectScore = getPerfectScore();
+      const fullName = studentInfo.firstName + " " + studentInfo.lastName;
+
+      document.getElementById("resultStudentName").textContent = fullName;
+      document.getElementById("resultDate").textContent = studentInfo.date;
+      document.getElementById("resultPassword").textContent = studentInfo.password;
+      document.getElementById("finalScore").textContent = total + " / " + perfectScore + " points";
+
+      const key = document.getElementById("answerKey");
+      key.innerHTML = "";
+
+      questions.forEach((item, index) => {
+        const student = answers[index] || "No answer";
+        const correct = isCorrect(student, item.a);
+
+        const div = document.createElement("div");
+        div.className = "key-item";
+        div.innerHTML = `
+          <b>Item ${index + 1}</b><br>
+          Question: ${item.q}<br>
+          Your Answer: ${student}<br>
+          Correct Answer: <b>${item.a}</b><br>
+          Result: <b>${correct ? "Correct" : "Incorrect"}</b>
+        `;
+        key.appendChild(div);
+      });
+
+      showScreen("resultScreen");
+    }
+
+    function downloadScreenshot() {
+      const capture = document.getElementById("captureArea");
+      const rect = capture.getBoundingClientRect();
+      const scale = 2;
+
+      const canvas = document.createElement("canvas");
+      canvas.width = rect.width * scale;
+      canvas.height = rect.height * scale;
+      const ctx = canvas.getContext("2d");
+      ctx.scale(scale, scale);
+
+      ctx.fillStyle = "#f0fdf4";
+      ctx.fillRect(0, 0, rect.width, rect.height);
+
+      ctx.fillStyle = "#1f2937";
+      ctx.font = "bold 24px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText("Quiz Completed", rect.width / 2, 40);
+
+      ctx.textAlign = "left";
+      ctx.font = "16px Arial";
+      const lines = [
+        "Student Name: " + studentInfo.firstName + " " + studentInfo.lastName,
+        "Date: " + studentInfo.date,
+        "Password Used: " + studentInfo.password,
+        "Total Score: " + getCurrentPoints() + " / " + getPerfectScore() + " points"
+      ];
+
+      let y = 85;
+      lines.forEach(line => {
+        ctx.fillText(line, 40, y);
+        y += 32;
+      });
+
+      const url = canvas.toDataURL("image/png");
+      const a = document.createElement("a");
+      const safeName = (studentInfo.firstName + "_" + studentInfo.lastName).replace(/[^a-z0-9_]/gi, "_");
+      a.href = url;
+      a.download = safeName + "_quiz_screenshot.png";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  </script>
+</body>
+</html>
