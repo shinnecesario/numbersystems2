@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BCD, Excess-3, and Gray Code Flashcard Quiz</title>
+  <title>ASCII and Binary Flashcard Quiz</title>
   <style>
     :root {
       --bg: #f4f6fb;
@@ -203,7 +203,7 @@
   <main class="app">
 
     <section id="splashScreen" class="screen active">
-      <h1>BCD, Excess-3, and Gray Code Quiz</h1>
+      <h1>ASCII and Binary Quiz</h1>
       <div class="subtitle">
         
       </div>
@@ -235,7 +235,7 @@
     </section>
 
     <section id="quizScreen" class="screen">
-      <h1>BCD, Excess-3, and Gray Code Quiz</h1>
+      <h1>ASCII and Binary Quiz</h1>
       <div class="subtitle"></div>
 
       <div class="topbar">
@@ -257,7 +257,7 @@
       </div>
 
       <div class="note">
-        4-bit answers should have spaces.
+        Use 8-bit binary for every character. Capital and lowercase letters have different ASCII codes.
       </div>
     </section>
 
@@ -282,161 +282,68 @@
   </main>
 
   <script>
-    const MAGIC_PASSWORD = "mamamo";
+    const MAGIC_PASSWORD = "holidaybukas";
     const POINTS_PER_ITEM = 3;
 
     const questionBank = [
       {
-        category: "Activity 2: Convert Decimal to BCD",
-        q: "Convert 35 to BCD.",
-        a: "35 = 0011 0101",
+        category: "ASCII to Binary",
+        q: "Convert the ASCII text \"Yumi\" to 8-bit binary.",
+        a: "01011001 01110101 01101101 01101001",
         points: POINTS_PER_ITEM
       },
       {
-        category: "Activity 2: Convert Decimal to BCD",
-        q: "Convert 78 to BCD.",
-        a: "78 = 0111 1000",
+        category: "ASCII to Binary",
+        q: "Convert the ASCII text \"Yuji\" to 8-bit binary.",
+        a: "01011001 01110101 01101010 01101001",
         points: POINTS_PER_ITEM
       },
       {
-        category: "Activity 2: Convert Decimal to BCD",
-        q: "Convert 104 to BCD.",
-        a: "104 = 0001 0000 0100",
+        category: "ASCII to Binary",
+        q: "Convert the ASCII text \"RORI\" to 8-bit binary.",
+        a: "01010010 01001111 01010010 01001001",
         points: POINTS_PER_ITEM
       },
       {
-        category: "Activity 2: Convert Decimal to BCD",
-        q: "Convert 529 to BCD.",
-        a: "529 = 0101 0010 1001",
+        category: "ASCII to Binary",
+        q: "Convert the ASCII text \"BBKREME\" to 8-bit binary.",
+        a: "01000010 01000010 01001011 01010010 01000101 01001101 01000101",
         points: POINTS_PER_ITEM
       },
       {
-        category: "Activity 2: Convert Decimal to BCD",
-        q: "Convert 906 to BCD.",
-        a: "906 = 1001 0000 0110",
+        category: "ASCII to Binary",
+        q: "Convert the ASCII text \"Jiyeon\" to 8-bit binary.",
+        a: "01001010 01101001 01111001 01100101 01101111 01101110",
         points: POINTS_PER_ITEM
       },
       {
-        category: "Activity 2: Convert Decimal to BCD",
-        q: "Convert 1207 to BCD.",
-        a: "1207 = 0001 0010 0000 0111",
+        category: "Binary to ASCII",
+        q: "Convert this 8-bit binary to ASCII text: 01010011 01100101 01100001 01101101 01010011 01100101 01100001 01101101",
+        a: "SeamSeam",
         points: POINTS_PER_ITEM
       },
       {
-        category: "Activity 2: Convert Decimal to BCD",
-        q: "Convert 3005 to BCD.",
-        a: "3005 = 0011 0000 0000 0101",
-        points: POINTS_PER_ITEM
-      },
-
-      {
-        category: "Activity 3: Convert BCD to Decimal",
-        q: "Convert 0011 0101 from BCD to decimal.",
-        a: "0011 0101 = 35",
+        category: "Binary to ASCII",
+        q: "Convert this 8-bit binary to ASCII text: 01010000 01100001 01110000 01101001",
+        a: "Papi",
         points: POINTS_PER_ITEM
       },
       {
-        category: "Activity 3: Convert BCD to Decimal",
-        q: "Convert 0111 1000 from BCD to decimal.",
-        a: "0111 1000 = 78",
+        category: "Binary to ASCII",
+        q: "Convert this 8-bit binary to ASCII text: 01100010 01100101 01101110 01100101 01101110 01100111",
+        a: "beneng",
         points: POINTS_PER_ITEM
       },
       {
-        category: "Activity 3: Convert BCD to Decimal",
-        q: "Convert 0001 0000 0100 from BCD to decimal.",
-        a: "0001 0000 0100 = 104",
+        category: "Binary to ASCII",
+        q: "Convert this 8-bit binary to ASCII text: 01001101 01101001 01101101 01101001",
+        a: "Mimi",
         points: POINTS_PER_ITEM
       },
       {
-        category: "Activity 3: Convert BCD to Decimal",
-        q: "Convert 0101 0010 1001 from BCD to decimal.",
-        a: "0101 0010 1001 = 529",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Activity 3: Convert BCD to Decimal",
-        q: "Convert 1001 0000 0110 from BCD to decimal.",
-        a: "1001 0000 0110 = 906",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Activity 3: Convert BCD to Decimal",
-        q: "Convert 0001 0010 0000 0111 from BCD to decimal.",
-        a: "0001 0010 0000 0111 = 1207",
-        points: POINTS_PER_ITEM
-      },
-
-      {
-        category: "Activity 4: Convert Decimal Digits to Excess-3",
-        q: "Convert decimal digit 2 to Excess-3.",
-        a: "2 = 0101",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Activity 4: Convert Decimal Digits to Excess-3",
-        q: "Convert decimal digit 5 to Excess-3.",
-        a: "5 = 1000",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Activity 4: Convert Decimal Digits to Excess-3",
-        q: "Convert decimal digit 7 to Excess-3.",
-        a: "7 = 1010",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Activity 4: Convert Decimal Digits to Excess-3",
-        q: "Convert decimal digit 8 to Excess-3.",
-        a: "8 = 1011",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Activity 4: Convert Decimal Digits to Excess-3",
-        q: "Convert decimal digit 9 to Excess-3.",
-        a: "9 = 1100",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Activity 4: Convert Decimal Digits to Excess-3",
-        q: "Convert decimal digit 0 to Excess-3.",
-        a: "0 = 0011",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Activity 4: Convert Decimal Digits to Excess-3",
-        q: "Convert decimal digit 6 to Excess-3.",
-        a: "6 = 1001",
-        points: POINTS_PER_ITEM
-      },
-
-      {
-        category: "Gray Code",
-        q: "Convert binary 0000 to Gray Code.",
-        a: "0000 = 0000",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Gray Code",
-        q: "Convert binary 0001 to Gray Code.",
-        a: "0001 = 0001",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Gray Code",
-        q: "Convert binary 0010 to Gray Code.",
-        a: "0010 = 0011",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Gray Code",
-        q: "Convert binary 0011 to Gray Code.",
-        a: "0011 = 0010",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Gray Code",
-        q: "Convert binary 0100 to Gray Code.",
-        a: "0100 = 0110",
+        category: "Binary to ASCII",
+        q: "Convert this 8-bit binary to ASCII text: 01100010 01100101 01110110 01100101 01101110 01100111",
+        a: "beveng",
         points: POINTS_PER_ITEM
       }
     ];
@@ -538,56 +445,26 @@
       }
     }
 
-    function normalize(text) {
-      return String(text)
-        .toLowerCase()
-        .replace(/\s/g, "")
-        .replace(/−/g, "-")
-        .replace(/₀/g,"0").replace(/₁/g,"1").replace(/₂/g,"2").replace(/₃/g,"3").replace(/₄/g,"4")
-        .replace(/₅/g,"5").replace(/₆/g,"6").replace(/₇/g,"7").replace(/₈/g,"8").replace(/₉/g,"9")
-        .replace(/[^a-z0-9=+-]/g, "");
-    }
-
-    function expectedCore(answer) {
-      return answer.split("=")[1].trim();
-    }
-
-    function removeSpaces(text) {
+    function normalizeBinary(text) {
       return String(text).replace(/\s/g, "");
     }
 
-    function stripLeadingZeros(text) {
-      const clean = removeSpaces(text);
-      if (!/^[01]+$/.test(clean) && !/^[0-9]+$/.test(clean)) return clean;
-      const stripped = clean.replace(/^0+/, "");
-      return stripped === "" ? "0" : stripped;
-    }
+    function isCorrect(student, item) {
+      const typed = String(student).trim();
 
-    function isCorrect(student, correct) {
-      const s = normalize(student);
-      const cFull = normalize(correct);
-      const cCore = normalize(expectedCore(correct));
+      if (item.category === "ASCII to Binary") {
+        return normalizeBinary(typed) === normalizeBinary(item.a);
+      }
 
-      const sNoSpaces = normalize(removeSpaces(student));
-      const cCoreNoSpaces = normalize(removeSpaces(expectedCore(correct)));
-
-      const sNoZeros = stripLeadingZeros(student);
-      const cNoZeros = stripLeadingZeros(expectedCore(correct));
-
-      return (
-        s === cFull ||
-        s === cCore ||
-        sNoSpaces === cCoreNoSpaces ||
-        sNoZeros === cNoZeros ||
-        s.includes(cCore) ||
-        s.includes(cCoreNoSpaces)
-      );
+      // Binary-to-ASCII answers are case-sensitive because ASCII assigns
+      // different codes to uppercase and lowercase letters.
+      return typed === item.a;
     }
 
     function getCurrentPoints() {
       let total = 0;
       for (let i = 0; i < questions.length; i++) {
-        if (answers[i] && isCorrect(answers[i], questions[i].a)) {
+        if (answers[i] && isCorrect(answers[i], questions[i])) {
           total += questions[i].points;
         }
       }
@@ -613,7 +490,7 @@
 
       questions.forEach((item, index) => {
         const student = answers[index] || "No answer";
-        const correct = isCorrect(student, item.a);
+        const correct = isCorrect(student, item);
 
         const div = document.createElement("div");
         div.className = "key-item";
