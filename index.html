@@ -285,68 +285,187 @@
     const MAGIC_PASSWORD = "holidaybukas";
     const POINTS_PER_ITEM = 3;
 
-    const questionBank = [
-      {
-        category: "ASCII to Binary",
-        q: "Convert the ASCII text \"Yumi\" to 8-bit binary.",
-        a: "01011001 01110101 01101101 01101001",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "ASCII to Binary",
-        q: "Convert the ASCII text \"Yuji\" to 8-bit binary.",
-        a: "01011001 01110101 01101010 01101001",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "ASCII to Binary",
-        q: "Convert the ASCII text \"RORI\" to 8-bit binary.",
-        a: "01010010 01001111 01010010 01001001",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "ASCII to Binary",
-        q: "Convert the ASCII text \"BBKREME\" to 8-bit binary.",
-        a: "01000010 01000010 01001011 01010010 01000101 01001101 01000101",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "ASCII to Binary",
-        q: "Convert the ASCII text \"Jiyeon\" to 8-bit binary.",
-        a: "01001010 01101001 01111001 01100101 01101111 01101110",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Binary to ASCII",
-        q: "Convert this 8-bit binary to ASCII text: 01010011 01100101 01100001 01101101 01010011 01100101 01100001 01101101",
-        a: "SeamSeam",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Binary to ASCII",
-        q: "Convert this 8-bit binary to ASCII text: 01010000 01100001 01110000 01101001",
-        a: "Papi",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Binary to ASCII",
-        q: "Convert this 8-bit binary to ASCII text: 01100010 01100101 01101110 01100101 01101110 01100111",
-        a: "beneng",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Binary to ASCII",
-        q: "Convert this 8-bit binary to ASCII text: 01001101 01101001 01101101 01101001",
-        a: "Mimi",
-        points: POINTS_PER_ITEM
-      },
-      {
-        category: "Binary to ASCII",
-        q: "Convert this 8-bit binary to ASCII text: 01100010 01100101 01110110 01100101 01101110 01100111",
-        a: "beveng",
-        points: POINTS_PER_ITEM
-      }
-    ];
+   const questionBank = [
+  // ACTIVITY 1: TRUE OR FALSE
+  {
+    category: "True or False",
+    q: "Logic gates are the building blocks of digital circuits.",
+    a: "TRUE"
+  },
+  {
+    category: "True or False",
+    q: "Binary logic uses the numbers 0 and 1.",
+    a: "TRUE"
+  },
+  {
+    category: "True or False",
+    q: "The NOT gate produces the same output as the input.",
+    a: "FALSE"
+  },
+  {
+    category: "True or False",
+    q: "An AND gate requires all inputs to be 1 for the output to be 1.",
+    a: "TRUE"
+  },
+  {
+    category: "True or False",
+    q: "An OR gate outputs 1 if at least one input is 1.",
+    a: "TRUE"
+  },
+
+  // ACTIVITY 2: IDENTIFY THE LOGIC GATE
+  {
+    category: "Identify the Logic Gate",
+    q: "Produces the opposite output of the input.",
+    a: "NOT"
+  },
+  {
+    category: "Identify the Logic Gate",
+    q: "Outputs 1 if at least one input is 1.",
+    a: "OR"
+  },
+  {
+    category: "Identify the Logic Gate",
+    q: "Outputs 1 only when all inputs are 1.",
+    a: "AND"
+  },
+  {
+    category: "Identify the Logic Gate",
+    q: "Outputs 1 when inputs are different.",
+    a: "XOR"
+  },
+  {
+    category: "Identify the Logic Gate",
+    q: "Outputs 1 when inputs are the same.",
+    a: "XNOR"
+  },
+  {
+    category: "Identify the Logic Gate",
+    q: "Opposite of an AND gate.",
+    a: "NAND"
+  },
+  {
+    category: "Identify the Logic Gate",
+    q: "Opposite of an OR gate.",
+    a: "NOR"
+  },
+
+  // ACTIVITY 3: COMPLETE THE TRUTH TABLE
+  {
+    category: "Truth Table",
+    q: "NOT Gate: A = 0, Output = ?",
+    a: "1"
+  },
+  {
+    category: "Truth Table",
+    q: "NOT Gate: A = 1, Output = ?",
+    a: "0"
+  },
+  {
+    category: "Truth Table",
+    q: "AND Gate: A=0, B=0, Output = ?",
+    a: "0"
+  },
+  {
+    category: "Truth Table",
+    q: "AND Gate: A=0, B=1, Output = ?",
+    a: "0"
+  },
+  {
+    category: "Truth Table",
+    q: "AND Gate: A=1, B=0, Output = ?",
+    a: "0"
+  },
+  {
+    category: "Truth Table",
+    q: "AND Gate: A=1, B=1, Output = ?",
+    a: "1"
+  },
+  {
+    category: "Truth Table",
+    q: "OR Gate: A=0, B=0, Output = ?",
+    a: "0"
+  },
+  {
+    category: "Truth Table",
+    q: "OR Gate: A=0, B=1, Output = ?",
+    a: "1"
+  },
+  {
+    category: "Truth Table",
+    q: "OR Gate: A=1, B=0, Output = ?",
+    a: "1"
+  },
+  {
+    category: "Truth Table",
+    q: "OR Gate: A=1, B=1, Output = ?",
+    a: "1"
+  },
+
+  // ACTIVITY 4: REAL-LIFE APPLICATION
+  {
+    category: "Real-Life Application",
+    q: "A student enters the school if he has an ID card AND wears the proper uniform.",
+    a: "AND"
+  },
+  {
+    category: "Real-Life Application",
+    q: "A fire alarm sounds when smoke OR heat is detected.",
+    a: "OR"
+  },
+  {
+    category: "Real-Life Application",
+    q: "A lamp automatically turns on when it becomes dark.",
+    a: "NOT"
+  },
+  {
+    category: "Real-Life Application",
+    q: "Two passwords are compared. Access is granted when both passwords are the same.",
+    a: "XNOR"
+  },
+  {
+    category: "Real-Life Application",
+    q: "A game awards points when two answers are different.",
+    a: "XOR"
+  },
+
+  // ACTIVITY 5: THINK LIKE A COMPUTER
+  {
+    category: "Think Like a Computer",
+    q: "A=0, B=0, OR Gate. Output = ?",
+    a: "0"
+  },
+  {
+    category: "Think Like a Computer",
+    q: "A=1, B=1, AND Gate. Output = ?",
+    a: "1"
+  },
+  {
+    category: "Think Like a Computer",
+    q: "A=0, NOT Gate. Output = ?",
+    a: "1"
+  },
+  {
+    category: "Think Like a Computer",
+    q: "A=1, B=0, XOR Gate. Output = ?",
+    a: "1"
+  },
+  {
+    category: "Think Like a Computer",
+    q: "A=1, B=1, NAND Gate. Output = ?",
+    a: "0"
+  },
+  {
+    category: "Think Like a Computer",
+    q: "A=0, B=0, NOR Gate. Output = ?",
+    a: "1"
+  },
+  {
+    category: "Think Like a Computer",
+    q: "A=1, B=1, XNOR Gate. Output = ?",
+    a: "1"
+  }
+];
 
     let questions = [];
     let current = 0;
