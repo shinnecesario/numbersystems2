@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ASCII and Binary Flashcard Quiz</title>
+  <title>Logic Gates Flashcard Quiz</title>
   <style>
     :root {
       --bg: #f4f6fb;
@@ -203,7 +203,7 @@
   <main class="app">
 
     <section id="splashScreen" class="screen active">
-      <h1>ASCII and Binary Quiz</h1>
+      <h1>Logic Gates Activity</h1>
       <div class="subtitle">
         
       </div>
@@ -282,7 +282,7 @@
   </main>
 
   <script>
-    const MAGIC_PASSWORD = "holidaybukas";
+    const MAGIC_PASSWORD = "lastactivity";
     const POINTS_PER_ITEM = 3;
 
    const questionBank = [
@@ -569,10 +569,7 @@
     }
 
     function isCorrect(student, item) {
-      const typed = String(student).trim();
-
-      if (item.category === "ASCII to Binary") {
-        return normalizeBinary(typed) === normalizeBinary(item.a);
+     return student.trim().toUpperCase() === item.a.toUpperCase(); 
       }
 
       // Binary-to-ASCII answers are case-sensitive because ASCII assigns
