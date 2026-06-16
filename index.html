@@ -578,13 +578,19 @@
     }
 
     function getCurrentPoints() {
-      let total = 0;
-      for (let i = 0; i < questions.length; i++) {
-        if (answers[i] && isCorrect(answers[i], questions[i])) {
-          total += questions[i].points;
-        }
-      }
-      return total;
+       let total = 0;
+
+  for (let i = 0; i < questions.length; i++) {
+    if (answers[i] && isCorrect(answers[i], questions[i])) {
+      total += POINTS_PER_ITEM;
+    }
+  }
+
+  return total;
+}
+
+function getPerfectScore() {
+  return questions.length * POINTS_PER_ITEM;
     }
 
     function getPerfectScore() {
