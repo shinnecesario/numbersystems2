@@ -1,670 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Logic Gates Flashcard Quiz</title>
-  <style>
-    :root {
-      --bg: #f4f6fb;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --border: #d1d5db;
-      --accent: #2563eb;
-      --success: #16a34a;
-      --danger: #dc2626;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-    .app {
-      width: 100%;
-      max-width: 820px;
-      background: var(--card);
-      border-radius: 22px;
-      box-shadow: 0 18px 45px rgba(0,0,0,0.12);
-      padding: 28px;
-    }
-    h1, h2 {
-      text-align: center;
-      margin: 0 0 8px;
-    }
-    h1 { font-size: 28px; }
-    h2 { font-size: 24px; }
-    .subtitle {
-      text-align: center;
-      color: var(--muted);
-      margin-bottom: 22px;
-      line-height: 1.5;
-    }
-    .field {
-      margin-bottom: 14px;
-    }
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-    input[type="text"], input[type="date"], input[type="password"] {
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      font-size: 17px;
-    }
-    #studentAnswer {
-      text-align: center;
-      font-size: 18px;
-      margin-bottom: 14px;
-    }
-    .error {
-      display: none;
-      color: var(--danger);
-      font-weight: bold;
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      padding: 10px;
-      border-radius: 10px;
-      margin: 12px 0;
-      text-align: center;
-    }
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-      padding: 12px;
-      background: #f9fafb;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      font-weight: bold;
-    }
-    .flashcard {
-      border: 2px solid var(--border);
-      border-radius: 20px;
-      padding: 26px;
-      min-height: 290px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background: linear-gradient(180deg, #fff, #f9fafb);
-      margin-bottom: 18px;
-    }
-    .set-label {
-      display: none;
-    }
-    .question {
-      font-size: 26px;
-      line-height: 1.35;
-      font-weight: bold;
-      margin-bottom: 18px;
-    }
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 12px;
-    }
-    .result-buttons {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-top: 12px;
-    }
-    button {
-      border: none;
-      border-radius: 12px;
-      padding: 14px 16px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      color: white;
-      background: var(--accent);
-      text-decoration: none;
-      display: inline-block;
-      text-align: center;
-    }
-    button.secondary { background: #374151; }
-    button.success { background: var(--success); }
-    button:disabled {
-      opacity: .55;
-      cursor: not-allowed;
-    }
-    .note {
-      font-size: 14px;
-      color: var(--muted);
-      margin-top: 14px;
-      line-height: 1.5;
-      text-align: center;
-    }
-    .screen { display: none; }
-    .screen.active { display: block; }
-    .result-card {
-      margin-top: 20px;
-      padding: 18px;
-      border-radius: 16px;
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      text-align: center;
-    }
-    .student-summary {
-      margin: 16px auto;
-      max-width: 560px;
-      text-align: left;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px;
-      line-height: 1.7;
-    }
-    .answer-key {
-      margin-top: 14px;
-      display: grid;
-      gap: 10px;
-      text-align: left;
-      display:none;
-    }
-    .key-item {
-      padding: 12px;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      line-height: 1.45;
-    }
-    .small {
-      font-size: 13px;
-      color: var(--muted);
-      text-align: center;
-      line-height: 1.5;
-    }
-    div#answerKey{
-      display:none;
-    }
-    @media (max-width: 560px) {
-      .buttons { grid-template-columns: 1fr; }
-      .question { font-size: 21px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logic Gates Activity</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--text:#1f2937;--border:#d1d5db;--accent:#2563eb;--success:#16a34a;--danger:#dc2626}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);display:flex;justify-content:center;padding:24px}
+.app{max-width:850px;width:100%;background:#fff;border-radius:20px;padding:28px;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+.screen{display:none}.screen.active{display:block}
+input{width:100%;padding:12px;border:1px solid var(--border);border-radius:10px;margin-top:6px}
+.field{margin-bottom:12px}
+button{border:none;background:var(--accent);color:#fff;padding:12px 16px;border-radius:10px;font-weight:bold;cursor:pointer}
+.secondary{background:#374151}.success{background:var(--success)}
+.flashcard{border:2px solid var(--border);border-radius:16px;padding:25px;text-align:center;margin:15px 0}
+.question{font-size:24px;font-weight:bold}
+.topbar{display:flex;justify-content:space-between;flex-wrap:wrap;background:#f9fafb;padding:10px;border-radius:10px;margin-bottom:15px}
+.error{display:none;color:var(--danger);font-weight:bold}
+</style>
 </head>
 <body>
-  <main class="app">
+<div class="app">
 
-    <section id="splashScreen" class="screen active">
-      <h1>Logic Gates Activity</h1>
-      <div class="subtitle">
-        
-      </div>
+<section id="splashScreen" class="screen active">
+<h1>Logic Gates Activity</h1>
+<div class="field"><label>First Name</label><input id="firstName"></div>
+<div class="field"><label>Last Name</label><input id="lastName"></div>
+<div class="field"><label>Date</label><input type="date" id="quizDate"></div>
+<div class="field"><label>Magic Password</label><input type="password" id="magicPassword"></div>
+<div id="loginError" class="error">Complete all fields and enter the correct password.</div>
+<button onclick="startQuiz()">Open Quiz</button>
+</section>
 
-      <div class="field">
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" placeholder="Enter first name" autocomplete="given-name" />
-      </div>
+<section id="instructionScreen" class="screen">
+<h2 id="instructionTitle"></h2>
+<div class="flashcard"><div id="instructionText" class="question"></div></div>
+<button onclick="continueToQuestions()">Start Activity</button>
+</section>
 
-      <div class="field">
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" placeholder="Enter last name" autocomplete="family-name" />
-      </div>
+<section id="quizScreen" class="screen">
+<h1>Logic Gates Quiz</h1>
+<div class="topbar">
+<div>Student: <span id="studentNameTop"></span></div>
+<div>Item <span id="itemNumber"></span>/<span id="totalItems"></span></div>
+</div>
+<div class="flashcard">
+<div id="question" class="question"></div>
+</div>
+<input id="studentAnswer" placeholder="Type your answer">
+<br><br>
+<button class="secondary" onclick="previousCard()">Previous</button>
+<button onclick="nextCard()" id="nextBtn">Next</button>
+</section>
 
-      <div class="field">
-        <label for="quizDate">Date Today</label>
-        <input type="date" id="quizDate" />
-      </div>
+<section id="resultScreen" class="screen">
+<h2>Quiz Completed</h2>
+<p><b>Name:</b> <span id="resultName"></span></p>
+<p><b>Date:</b> <span id="resultDate"></span></p>
+<p><b>Score:</b> <span id="finalScore"></span></p>
+<button class="success" onclick="downloadResult()">Download Result</button>
+</section>
 
-      <div class="field">
-        <label for="magicPassword">Magic Password</label>
-        <input type="password" id="magicPassword" placeholder="Enter magic password" />
-      </div>
+</div>
 
-      <div class="error" id="loginError">Please complete all fields and enter the correct password.</div>
+<script>
+const MAGIC_PASSWORD="lastactivity";
+const POINTS_PER_ITEM=3;
 
-      <button style="width:100%;" onclick="startQuiz()">Open Quiz</button>
-      <p class="small">Password is case-sensitive.</p>
-    </section>
+const categoryInstructions={
+"True or False":"Read each statement carefully. Type TRUE if correct and FALSE if incorrect.",
+"Identify the Logic Gate":"Identify the logic gate being described.",
+"Truth Table":"Determine the correct output based on the given inputs.",
+"Real-Life Application":"Identify which logic gate best matches the situation.",
+"Think Like a Computer":"Analyze the inputs and determine the output."
+};
 
-    <section id="quizScreen" class="screen">
-      <h1>Logic Gates Quiz</h1>
-      <div class="subtitle"></div>
-
-      <div class="topbar">
-        <div>Student: <span id="studentNameTop"></span></div>
-        <div>Item: <span id="itemNumber">1</span> / <span id="totalItemsTop"></span></div>
-        <div>Total Items: <span id="totalItemsTop2"></span></div>
-      </div>
-
-      <section class="flashcard">
-        <div class="set-label" id="category">Category</div>
-        <div class="question" id="question">Question appears here</div>
-      </section>
-
-      <input type="text" id="studentAnswer" placeholder="Type your answer here" />
-
-      <div class="buttons">
-        <button class="secondary" id="prevBtn" onclick="previousCard()">Previous</button>
-        <button id="nextBtn" onclick="nextCard()">Next</button>
-      </div>
-
-      <div class="note">
-        Use 8-bit binary for every character. Capital and lowercase letters have different ASCII codes.
-      </div>
-    </section>
-
-    <section id="resultScreen" class="screen">
-      <div id="captureArea" class="result-card">
-        <h2>Quiz Completed</h2>
-
-        <div class="student-summary">
-          <div><b>Student Name:</b> <span id="resultStudentName"></span></div>
-          <div><b>Date:</b> <span id="resultDate"></span></div>
-          
-          <div><b>Total Score:</b> <span id="finalScore"></span></div>
-        </div>
-      </div>
-
-      <div class="result-buttons">
-        <button class="success" onclick="downloadScreenshot()">Download Screen Capture</button>
-      </div>
-
-      <div class="answer-key" id="answerKey"></div>
-    </section>
-  </main>
-
-  <script>
-    const MAGIC_PASSWORD = "lastactivity";
-    const POINTS_PER_ITEM = 3;
-
-   const questionBank = [
-  // ACTIVITY 1: TRUE OR FALSE
-  {
-    category: "True or False",
-    q: "Logic gates are the building blocks of digital circuits.",
-    a: "TRUE"
-  },
-  {
-    category: "True or False",
-    q: "Binary logic uses the numbers 0 and 1.",
-    a: "TRUE"
-  },
-  {
-    category: "True or False",
-    q: "The NOT gate produces the same output as the input.",
-    a: "FALSE"
-  },
-  {
-    category: "True or False",
-    q: "An AND gate requires all inputs to be 1 for the output to be 1.",
-    a: "TRUE"
-  },
-  {
-    category: "True or False",
-    q: "An OR gate outputs 1 if at least one input is 1.",
-    a: "TRUE"
-  },
-
-  // ACTIVITY 2: IDENTIFY THE LOGIC GATE
-  {
-    category: "Identify the Logic Gate",
-    q: "Produces the opposite output of the input.",
-    a: "NOT"
-  },
-  {
-    category: "Identify the Logic Gate",
-    q: "Outputs 1 if at least one input is 1.",
-    a: "OR"
-  },
-  {
-    category: "Identify the Logic Gate",
-    q: "Outputs 1 only when all inputs are 1.",
-    a: "AND"
-  },
-  {
-    category: "Identify the Logic Gate",
-    q: "Outputs 1 when inputs are different.",
-    a: "XOR"
-  },
-  {
-    category: "Identify the Logic Gate",
-    q: "Outputs 1 when inputs are the same.",
-    a: "XNOR"
-  },
-  {
-    category: "Identify the Logic Gate",
-    q: "Opposite of an AND gate.",
-    a: "NAND"
-  },
-  {
-    category: "Identify the Logic Gate",
-    q: "Opposite of an OR gate.",
-    a: "NOR"
-  },
-
-  // ACTIVITY 3: COMPLETE THE TRUTH TABLE
-  {
-    category: "Truth Table",
-    q: "NOT Gate: A = 0, Output = ?",
-    a: "1"
-  },
-  {
-    category: "Truth Table",
-    q: "NOT Gate: A = 1, Output = ?",
-    a: "0"
-  },
-  {
-    category: "Truth Table",
-    q: "AND Gate: A=0, B=0, Output = ?",
-    a: "0"
-  },
-  {
-    category: "Truth Table",
-    q: "AND Gate: A=0, B=1, Output = ?",
-    a: "0"
-  },
-  {
-    category: "Truth Table",
-    q: "AND Gate: A=1, B=0, Output = ?",
-    a: "0"
-  },
-  {
-    category: "Truth Table",
-    q: "AND Gate: A=1, B=1, Output = ?",
-    a: "1"
-  },
-  {
-    category: "Truth Table",
-    q: "OR Gate: A=0, B=0, Output = ?",
-    a: "0"
-  },
-  {
-    category: "Truth Table",
-    q: "OR Gate: A=0, B=1, Output = ?",
-    a: "1"
-  },
-  {
-    category: "Truth Table",
-    q: "OR Gate: A=1, B=0, Output = ?",
-    a: "1"
-  },
-  {
-    category: "Truth Table",
-    q: "OR Gate: A=1, B=1, Output = ?",
-    a: "1"
-  },
-
-  // ACTIVITY 4: REAL-LIFE APPLICATION
-  {
-    category: "Real-Life Application",
-    q: "A student enters the school if he has an ID card AND wears the proper uniform.",
-    a: "AND"
-  },
-  {
-    category: "Real-Life Application",
-    q: "A fire alarm sounds when smoke OR heat is detected.",
-    a: "OR"
-  },
-  {
-    category: "Real-Life Application",
-    q: "A lamp automatically turns on when it becomes dark.",
-    a: "NOT"
-  },
-  {
-    category: "Real-Life Application",
-    q: "Two passwords are compared. Access is granted when both passwords are the same.",
-    a: "XNOR"
-  },
-  {
-    category: "Real-Life Application",
-    q: "A game awards points when two answers are different.",
-    a: "XOR"
-  },
-
-  // ACTIVITY 5: THINK LIKE A COMPUTER
-  {
-    category: "Think Like a Computer",
-    q: "A=0, B=0, OR Gate. Output = ?",
-    a: "0"
-  },
-  {
-    category: "Think Like a Computer",
-    q: "A=1, B=1, AND Gate. Output = ?",
-    a: "1"
-  },
-  {
-    category: "Think Like a Computer",
-    q: "A=0, NOT Gate. Output = ?",
-    a: "1"
-  },
-  {
-    category: "Think Like a Computer",
-    q: "A=1, B=0, XOR Gate. Output = ?",
-    a: "1"
-  },
-  {
-    category: "Think Like a Computer",
-    q: "A=1, B=1, NAND Gate. Output = ?",
-    a: "0"
-  },
-  {
-    category: "Think Like a Computer",
-    q: "A=0, B=0, NOR Gate. Output = ?",
-    a: "1"
-  },
-  {
-    category: "Think Like a Computer",
-    q: "A=1, B=1, XNOR Gate. Output = ?",
-    a: "1"
-  }
+const questionBank=[
+{category:"True or False",q:"Logic gates are the building blocks of digital circuits.",a:"TRUE"},
+{category:"True or False",q:"Binary logic uses the numbers 0 and 1.",a:"TRUE"},
+{category:"True or False",q:"The NOT gate produces the same output as the input.",a:"FALSE"},
+{category:"True or False",q:"An AND gate requires all inputs to be 1 for the output to be 1.",a:"TRUE"},
+{category:"True or False",q:"An OR gate outputs 1 if at least one input is 1.",a:"TRUE"},
+{category:"Identify the Logic Gate",q:"Produces the opposite output of the input.",a:"NOT"},
+{category:"Identify the Logic Gate",q:"Outputs 1 if at least one input is 1.",a:"OR"},
+{category:"Identify the Logic Gate",q:"Outputs 1 only when all inputs are 1.",a:"AND"},
+{category:"Identify the Logic Gate",q:"Outputs 1 when inputs are different.",a:"XOR"},
+{category:"Identify the Logic Gate",q:"Outputs 1 when inputs are the same.",a:"XNOR"},
+{category:"Identify the Logic Gate",q:"Opposite of an AND gate.",a:"NAND"},
+{category:"Identify the Logic Gate",q:"Opposite of an OR gate.",a:"NOR"},
+{category:"Truth Table",q:"NOT Gate: A = 0, Output = ?",a:"1"},
+{category:"Truth Table",q:"NOT Gate: A = 1, Output = ?",a:"0"},
+{category:"Truth Table",q:"AND Gate: A=0, B=0, Output = ?",a:"0"},
+{category:"Truth Table",q:"AND Gate: A=0, B=1, Output = ?",a:"0"},
+{category:"Truth Table",q:"AND Gate: A=1, B=0, Output = ?",a:"0"},
+{category:"Truth Table",q:"AND Gate: A=1, B=1, Output = ?",a:"1"},
+{category:"Truth Table",q:"OR Gate: A=0, B=0, Output = ?",a:"0"},
+{category:"Truth Table",q:"OR Gate: A=0, B=1, Output = ?",a:"1"},
+{category:"Truth Table",q:"OR Gate: A=1, B=0, Output = ?",a:"1"},
+{category:"Truth Table",q:"OR Gate: A=1, B=1, Output = ?",a:"1"},
+{category:"Real-Life Application",q:"A student enters the school if he has an ID card AND wears the proper uniform.",a:"AND"},
+{category:"Real-Life Application",q:"A fire alarm sounds when smoke OR heat is detected.",a:"OR"},
+{category:"Real-Life Application",q:"A lamp automatically turns on when it becomes dark.",a:"NOT"},
+{category:"Real-Life Application",q:"Two passwords are compared. Access is granted when both passwords are the same.",a:"XNOR"},
+{category:"Real-Life Application",q:"A game awards points when two answers are different.",a:"XOR"},
+{category:"Think Like a Computer",q:"A=0, B=0, OR Gate. Output = ?",a:"0"},
+{category:"Think Like a Computer",q:"A=1, B=1, AND Gate. Output = ?",a:"1"},
+{category:"Think Like a Computer",q:"A=0, NOT Gate. Output = ?",a:"1"},
+{category:"Think Like a Computer",q:"A=1, B=0, XOR Gate. Output = ?",a:"1"},
+{category:"Think Like a Computer",q:"A=1, B=1, NAND Gate. Output = ?",a:"0"},
+{category:"Think Like a Computer",q:"A=0, B=0, NOR Gate. Output = ?",a:"1"},
+{category:"Think Like a Computer",q:"A=1, B=1, XNOR Gate. Output = ?",a:"1"}
 ];
 
-    let questions = [];
-    let current = 0;
-    let answers = [];
-    let studentInfo = {
-      firstName: "",
-      lastName: "",
-      date: "",
-      password: ""
-    };
+let current=0, answers=new Array(questionBank.length).fill(""), student={};
 
-    window.onload = function() {
-      const today = new Date();
-      const yyyy = today.getFullYear();
-      const mm = String(today.getMonth() + 1).padStart(2, "0");
-      const dd = String(today.getDate()).padStart(2, "0");
-      document.getElementById("quizDate").value = `${yyyy}-${mm}-${dd}`;
-    };
+function showScreen(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');}
+document.getElementById('quizDate').value=new Date().toISOString().split('T')[0];
 
-    function showScreen(id) {
-      document.querySelectorAll(".screen").forEach(screen => screen.classList.remove("active"));
-      document.getElementById(id).classList.add("active");
-    }
-
-    function startQuiz() {
-      const firstName = document.getElementById("firstName").value.trim();
-      const lastName = document.getElementById("lastName").value.trim();
-      const date = document.getElementById("quizDate").value;
-      const password = document.getElementById("magicPassword").value;
-
-      if (!firstName || !lastName || !date || password !== MAGIC_PASSWORD) {
-        document.getElementById("loginError").style.display = "block";
-        return;
-      }
-
-      document.getElementById("loginError").style.display = "none";
-
-      studentInfo = { firstName, lastName, date, password };
-      document.getElementById("studentNameTop").textContent = firstName + " " + lastName;
-
-      restartQuizOnly();
-      showScreen("quizScreen");
-    }
-
-    function shuffle(array) {
-      const arr = [...array];
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    }
-
-    function restartQuizOnly() {
-      questions = shuffle(questionBank);
-      current = 0;
-      answers = new Array(questions.length).fill("");
-
-      document.getElementById("totalItemsTop").textContent = questions.length;
-      document.getElementById("totalItemsTop2").textContent = questions.length;
-
-      loadCard();
-    }
-
-    function loadCard() {
-      const item = questions[current];
-
-      document.getElementById("itemNumber").textContent = current + 1;
-      document.getElementById("category").textContent = item.category;
-      document.getElementById("question").textContent = item.q;
-      document.getElementById("studentAnswer").value = answers[current] || "";
-
-      document.getElementById("prevBtn").disabled = current === 0;
-      document.getElementById("nextBtn").textContent = current === questions.length - 1 ? "Finish" : "Next";
-    }
-
-    function saveAnswer() {
-      answers[current] = document.getElementById("studentAnswer").value.trim();
-    }
-
-    function previousCard() {
-      saveAnswer();
-      if (current > 0) {
-        current--;
-        loadCard();
-      }
-    }
-
-    function nextCard() {
-      saveAnswer();
-      if (current < questions.length - 1) {
-        current++;
-        loadCard();
-      } else {
-        finishQuiz();
-      }
-    }
-
-    function normalizeBinary(text) {
-      return String(text).replace(/\s/g, "");
-    }
-
-    function isCorrect(student, item) {
-      return student.trim().toUpperCase() === item.a.toUpperCase();
-    }
-
-    function getCurrentPoints() {
-       let total = 0;
-
-  for (let i = 0; i < questions.length; i++) {
-    if (answers[i] && isCorrect(answers[i], questions[i])) {
-      total += POINTS_PER_ITEM;
-    }
-  }
-
-  return total;
+function startQuiz(){
+ let fn=firstName.value.trim(), ln=lastName.value.trim(), dt=quizDate.value, pw=magicPassword.value;
+ if(!fn||!ln||!dt||pw!==MAGIC_PASSWORD){loginError.style.display='block';return;}
+ student={fn,ln,dt,pw};
+ studentNameTop.textContent=fn+" "+ln;
+ loadCard();
 }
 
-function getPerfectScore() {
-  return questions.length * POINTS_PER_ITEM;
-    }
+function showInstruction(cat){
+ instructionTitle.textContent=cat;
+ instructionText.textContent=categoryInstructions[cat];
+ showScreen('instructionScreen');
+}
+function continueToQuestions(){renderQuestion();showScreen('quizScreen');}
+function renderQuestion(){
+ let q=questionBank[current];
+ itemNumber.textContent=current+1;
+ totalItems.textContent=questionBank.length;
+ question.textContent=q.q;
+ studentAnswer.value=answers[current]||"";
+ nextBtn.textContent=current===questionBank.length-1?"Finish":"Next";
+}
+function loadCard(){
+ let q=questionBank[current];
+ if(current===0||questionBank[current-1].category!==q.category){showInstruction(q.category);}
+ else {renderQuestion();showScreen('quizScreen');}
+}
+function previousCard(){answers[current]=studentAnswer.value;if(current>0){current--;renderQuestion();}}
+function nextCard(){
+ answers[current]=studentAnswer.value;
+ if(current<questionBank.length-1){current++;loadCard();}
+ else finishQuiz();
+}
+function finishQuiz(){
+ let score=0;
+ questionBank.forEach((q,i)=>{if((answers[i]||'').trim().toUpperCase()===q.a.toUpperCase())score+=POINTS_PER_ITEM;});
+ resultName.textContent=student.fn+" "+student.ln;
+ resultDate.textContent=student.dt;
+ finalScore.textContent=score+" / "+(questionBank.length*POINTS_PER_ITEM)+" points";
+ showScreen('resultScreen');
+}
+ 
 
-    
+function downloadResult() {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
 
-    function finishQuiz() {
-      const total = getCurrentPoints();
-      const perfectScore = getPerfectScore();
-      const fullName = studentInfo.firstName + " " + studentInfo.lastName;
+  canvas.width = 1000;
+  canvas.height = 600;
 
-      document.getElementById("resultStudentName").textContent = fullName;
-      document.getElementById("resultDate").textContent = studentInfo.date;
-      
-      document.getElementById("finalScore").textContent = total + " / " + perfectScore + " points";
+  // Background
+  ctx.fillStyle = "#f0fdf4";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      const key = document.getElementById("answerKey");
-      key.innerHTML = "";
+  // Border
+  ctx.strokeStyle = "#16a34a";
+  ctx.lineWidth = 4;
+  ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
 
-      questions.forEach((item, index) => {
-        const student = answers[index] || "No answer";
-        const correct = isCorrect(student, item);
+  // Title
+  ctx.fillStyle = "#1f2937";
+  ctx.font = "bold 40px Arial";
+  ctx.textAlign = "center";
+  ctx.fillText("Logic Gates Quiz Result", canvas.width / 2, 80);
 
-        const div = document.createElement("div");
-        div.className = "key-item";
-        div.innerHTML = `
-          <b>Item ${index + 1}</b><br>
-          Question: ${item.q}<br>
-          Your Answer: ${student}<br>
-          Correct Answer: <b>${item.a}</b><br>
-          Result: <b>${correct ? "Correct" : "Incorrect"}</b>
-        `;
-        key.appendChild(div);
-      });
+  // Student Information
+  ctx.textAlign = "left";
+  ctx.font = "28px Arial";
 
-      showScreen("resultScreen");
-    }
+  let y = 170;
 
-    function downloadScreenshot() {
-      const capture = document.getElementById("captureArea");
-      const rect = capture.getBoundingClientRect();
-      const scale = 2;
+  ctx.fillText(
+    "Student Name: " + student.fn + " " + student.ln,
+    80,
+    y
+  );
 
-      const canvas = document.createElement("canvas");
-      canvas.width = rect.width * scale;
-      canvas.height = rect.height * scale;
-      const ctx = canvas.getContext("2d");
-      ctx.scale(scale, scale);
+  y += 60;
 
-      ctx.fillStyle = "#f0fdf4";
-      ctx.fillRect(0, 0, rect.width, rect.height);
+  ctx.fillText(
+    "Date: " + student.dt,
+    80,
+    y
+  );
 
-      ctx.fillStyle = "#1f2937";
-      ctx.font = "bold 24px Arial";
-      ctx.textAlign = "center";
-      ctx.fillText("Quiz Completed", rect.width / 2, 40);
+  y += 60;
 
-      ctx.textAlign = "left";
-      ctx.font = "16px Arial";
-      const lines = [
-        "Student Name: " + studentInfo.firstName + " " + studentInfo.lastName,
-        "Date: " + studentInfo.date,
-        "Password Used: " + studentInfo.password,
-        "Total Score: " + getCurrentPoints() + " / " + getPerfectScore() + " points"
-      ];
+  ctx.fillText(
+    "Score: " + finalScore.textContent,
+    80,
+    y
+  );
 
-      let y = 85;
-      lines.forEach(line => {
-        ctx.fillText(line, 40, y);
-        y += 32;
-      });
+  y += 100;
 
-      const url = canvas.toDataURL("image/png");
-      const a = document.createElement("a");
-      const safeName = (studentInfo.firstName + "_" + studentInfo.lastName).replace(/[^a-z0-9_]/gi, "_");
-      a.href = url;
-      a.download = safeName + "_quiz_screenshot.png";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
-  </script>
+  // Footer
+  ctx.font = "22px Arial";
+  ctx.fillStyle = "#6b7280";
+  ctx.fillText(
+    "Generated by Logic Gates Activity",
+    80,
+    y
+  );
+
+  const link = document.createElement("a");
+  link.href = canvas.toDataURL("image/png");
+  link.download =
+    student.fn +
+    "_" +
+    student.ln +
+    "_LogicGatesResult.png";
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+</script>
 </body>
 </html>
