@@ -175,7 +175,7 @@
       display: grid;
       gap: 10px;
       text-align: left;
-      dislay:none;
+      display:none;
     }
     .key-item {
       padding: 12px;
@@ -235,7 +235,7 @@
     </section>
 
     <section id="quizScreen" class="screen">
-      <h1>ASCII and Binary Quiz</h1>
+      <h1>Logic Gates Quiz</h1>
       <div class="subtitle"></div>
 
       <div class="topbar">
@@ -268,7 +268,7 @@
         <div class="student-summary">
           <div><b>Student Name:</b> <span id="resultStudentName"></span></div>
           <div><b>Date:</b> <span id="resultDate"></span></div>
-          <div><b>Password Used:</b> <span id="resultPassword"></span></div>
+          
           <div><b>Total Score:</b> <span id="finalScore"></span></div>
         </div>
       </div>
@@ -569,8 +569,7 @@
     }
 
     function isCorrect(student, item) {
-     return student.trim().toUpperCase() === item.a.toUpperCase();  
-      return typed === item.a;
+      return student.trim().toUpperCase() === item.a.toUpperCase();
     }
 
     function getCurrentPoints() {
@@ -589,9 +588,7 @@ function getPerfectScore() {
   return questions.length * POINTS_PER_ITEM;
     }
 
-    function getPerfectScore() {
-      return questions.reduce((sum, item) => sum + item.points, 0);
-    }
+    
 
     function finishQuiz() {
       const total = getCurrentPoints();
@@ -600,7 +597,7 @@ function getPerfectScore() {
 
       document.getElementById("resultStudentName").textContent = fullName;
       document.getElementById("resultDate").textContent = studentInfo.date;
-      document.getElementById("resultPassword").textContent = studentInfo.password;
+      
       document.getElementById("finalScore").textContent = total + " / " + perfectScore + " points";
 
       const key = document.getElementById("answerKey");
